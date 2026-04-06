@@ -6,58 +6,150 @@
 <title>Loik Air — Авиабилеты</title>
 
 <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f4f7fb; display: flex; flex-direction: column; min-height: 100vh; }
-    header { background: #0b3d91; color: white; padding: 1px; text-align: center; }
-    .container { max-width: 900px; margin: 20px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); flex: 1; }
+    body { 
+        margin: 0; 
+        font-family: 'Segoe UI', Arial, sans-serif; 
+        background: linear-gradient(135deg, #eef3ff, #f7f9fc); 
+        display: flex; 
+        flex-direction: column; 
+        min-height: 100vh; 
+    }
+
+    header { 
+        background: linear-gradient(90deg, #0b3d91, #1a5edb); 
+        color: white; 
+        padding: 15px; 
+        text-align: center; 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+        margin: 0;
+        letter-spacing: 1px;
+    }
+
+    .container { 
+        max-width: 900px; 
+        margin: 30px auto; 
+        padding: 25px; 
+        background: white; 
+        border-radius: 14px; 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+        flex: 1; 
+        animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
     
-    input, button { width: 100%; padding: 12px; margin-bottom: 5px; border-radius: 6px; border: 1px solid #ccc; box-sizing: border-box; font-size: 16px; }
+    input, button { 
+        width: 100%; 
+        padding: 14px; 
+        margin-bottom: 10px; 
+        border-radius: 8px; 
+        border: 1px solid #dcdcdc; 
+        box-sizing: border-box; 
+        font-size: 16px; 
+        transition: 0.2s;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #0b3d91;
+        box-shadow: 0 0 0 2px rgba(11,61,145,0.15);
+    }
     
-    button { background: #0b3d91; color: white; cursor: pointer; border: none; font-weight: bold; transition: 0.3s; }
-    button:hover { background: #082d6b; }
+    button { 
+        background: linear-gradient(90deg, #0b3d91, #1a5edb); 
+        color: white; 
+        cursor: pointer; 
+        border: none; 
+        font-weight: bold; 
+        transition: 0.3s; 
+    }
+
+    button:hover { 
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
     
     #statusMessage:empty { display: none; }
+
     .server-error { 
         background: #fff3cd; 
         color: #856404; 
-        padding: 10px; 
-        border-radius: 8px; 
-        margin: 5px 0; 
+        padding: 12px; 
+        border-radius: 10px; 
+        margin: 10px 0; 
         border: 1px solid #ffeeba; 
         text-align: center; 
         font-size: 14px;
+        animation: fadeIn 0.3s ease;
     }
 
-    /* СТИЛИ ДЛЯ ВАШИХ ЭЛЕМЕНТОВ */
     .tickets-title {
         color: #0b3d91;
         text-align: center;
         border-bottom: 2px solid #0b3d91;
-        padding-bottom: 5px;
+        padding-bottom: 6px;
         margin-top: 25px;
+        font-weight: 600;
     }
 
     .btn-link {
         display: block;
         text-align: center;
-        background: #7d7d7b; /* Зеленый цвет для привлечения внимания к покупке */
+        background: linear-gradient(90deg, #6c757d, #8a8a88);
         color: white;
         text-decoration: none;
-        padding: 12px;
-        border-radius: 6px;
+        padding: 14px;
+        border-radius: 8px;
         font-weight: bold;
         transition: 0.3s;
         margin-top: 10px;
     }
 
     .btn-link:hover {
-        background: #1a309b;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        background: linear-gradient(90deg, #1a309b, #274bcc);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 12px rgba(0,0,0,0.25);
     }
 
-    footer { background: #0b3d91; color: white; text-align: center; padding: 20px 10px; margin-top: 20px; }
-    .footer-content p { margin: 5px 0; font-size: 14px; opacity: 0.9; }
-    .footer-contacts { font-weight: bold; margin-top: 10px; }
-    .footer-contacts a { color: #80d8ff; text-decoration: none; }
+    footer { 
+        background: linear-gradient(90deg, #0b3d91, #1a5edb); 
+        color: white; 
+        text-align: center; 
+        padding: 25px 10px; 
+        margin-top: 20px; 
+    }
+
+    .footer-content p { 
+        margin: 6px 0; 
+        font-size: 14px; 
+        opacity: 0.9; 
+    }
+
+    .footer-contacts { 
+        font-weight: bold; 
+        margin-top: 10px; 
+    }
+
+    .footer-contacts a { 
+        color: #80d8ff; 
+        text-decoration: none; 
+    }
+
+    .admin {
+        background: #111;
+        color: #00ff88;
+        padding: 15px;
+        border-radius: 10px;
+        font-family: monospace;
+        margin-top: 15px;
+        box-shadow: inset 0 0 10px rgba(0,255,136,0.2);
+    }
 </style>
 </head>
 
@@ -78,15 +170,12 @@
 
     <button onclick="unlockAdmin()" style="background: #0f37a4;">🔐 Админ</button>
 
-
-<a href="https://t.me/Loik_Airs" class="btn-link">Список билетов</a>
- 
-<a href="https://t.me/Loik_Airs" class="btn-link">Перейти к бронированию </a>
-
+    <a href="https://t.me/Loik_Airs" class="btn-link">Список билетов</a>
+    <a href="https://t.me/Loik_Airs" class="btn-link">Перейти к бронированию </a>
 
     <div id="results"></div>
 
-    <div class="admin" id="adminPanel" style="display:none; background: #222; color: #0f0; padding: 15px; border-radius: 8px; font-family: monospace; margin-top: 10px;">
+    <div class="admin" id="adminPanel" style="display:none;">
         <h3>💰 ПАНЕЛЬ АДМИНИСТРАТОРА</h3>
         <p id="totalProfit">Прибыль: 0 ₽</p>
         <button onclick="lockAdmin()" style="background: #cc0000; width: auto; padding: 5px 15px;">Выйти</button>
@@ -95,13 +184,11 @@
 
 <footer>
     <div class="footer-content">
-
-
-<p><a href="https://t.me/loikov_project" style="color: white; text-decoration: none; font-weight: bold;">Telegram</a>&ensp;&ensp;
-
-<a href="https://loikov.space/" style="color: white; text-decoration: none; font-weight: bold;">www.loikov.space</a>
-</p>
-
+        <p>
+            <a href="https://t.me/loikov_project" style="color: white; text-decoration: none; font-weight: bold;">Telegram</a>
+            &ensp;&ensp;
+            <a href="https://loikov.space/" style="color: white; text-decoration: none; font-weight: bold;">www.loikov.space</a>
+        </p>
 
         <p>© 2026 Loil Air. Все права защищены.</p>
     </div>
